@@ -7,7 +7,6 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Juego de Evasión con Niveles")
 clock = pygame.time.Clock()
 
-# Colores
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 BLUE = (65, 105, 225)
@@ -15,23 +14,20 @@ BLACK = (0, 0, 0)
 DARK_BLUE = (25, 25, 112)
 LIGHT_BLUE = (173, 216, 230)
 
-# Jugador
 player_size = 50
 player_x = 400
 player_y = 500
 player_speed = 5
 
-# Enemigos
 enemies = []
 enemy_size = 30
 enemy_speed = 3
 enemy_spawn_rate = 20
 
-# Variables del juego
 score = 0
 lives = 3
 level = 1
-max_level = 5  # cantidad de niveles
+max_level = 5
 game_time = 0
 final_score = 0
 
@@ -69,7 +65,6 @@ def increase_difficulty():
     global enemy_speed, enemy_spawn_rate, game_time
     game_time += 1
 
-    # Subir dificultad automáticamente
     if game_time % 300 == 0:
         enemy_speed += 0.5
 
@@ -78,7 +73,6 @@ def increase_difficulty():
 
 def check_level_up():
     global level, enemy_speed, enemy_spawn_rate
-    # Subir de nivel cada 50 puntos
     if score >= level * 50 and level < max_level:
         level += 1
         enemy_speed += 1
@@ -104,7 +98,6 @@ def show_game_over():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 waiting = False
 
-# Bucle principal
 running = True
 while running:
     screen.fill(WHITE)
@@ -133,7 +126,6 @@ while running:
         else:
             draw_enemy(enemy[0], enemy[1])
 
-        # Colisión
         if (player_x < enemy[0] + enemy_size and
             player_x + player_size > enemy[0] and
             player_y < enemy[1] + enemy_size and
@@ -143,7 +135,7 @@ while running:
             if lives <= 0:
                 final_score = score
                 show_game_over()
-                # Reinicio
+                
                 player_x = 400
                 player_y = 500
                 enemies = []
