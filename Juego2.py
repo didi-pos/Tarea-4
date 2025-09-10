@@ -88,23 +88,6 @@ def increase_difficulty():
     if game_time % 400 == 0 and obstacle_spawn_rate > 30:
         obstacle_spawn_rate -= 3
 
-def show_level_complete():
-    screen.fill(BACKGROUND)
-    draw_text(f"NIVEL {level} COMPLETADO!", big_font, GREEN, 400, 200)
-    draw_text(f"Velocidad aumentada: {player_speed}", font, BLUE, 400, 250)
-    draw_text("Presiona cualquier tecla para continuar", font, BLACK, 400, 350)
-    pygame.display.update()
-    
-    waiting = True
-    while waiting:
-        clock.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYUP:
-                waiting = False
-
 def show_game_over():
     global final_score
     screen.fill(BACKGROUND)
@@ -160,8 +143,8 @@ while running:
             items.remove(item)
             score += 10
             
+            # Subir de nivel con puntos (sin mostrar pantalla)
             if score >= level * 100 and level < 4:
-                show_level_complete()
                 level += 1
                 max_level_reached = level
                 player_speed += 1
